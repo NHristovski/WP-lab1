@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>WP lab - Confirmation Info</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width:100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 3px 2px;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <header>
+        <h1>Pizza Order page - Order confirmation </h1>
+    </header>
+    <table>
+        <tr>
+            <th colspan="2">
+                Your Order Status
+            </th>
+        </tr>
+        <tr>
+            <td><b>Order ID:</b></td>
+            <td><th:block th:text="${order.orderId}"/></td>
+        </tr>
+        <tr>
+            <td><b>Client Name </b></td>
+            <td><th:block th:text="${order.clientName}"/></td>
+        </tr>
+        <tr>
+            <td><b>Client Address </b></td>
+            <td><th:block th:text="${order.clientAddress}"/></td>
+        </tr>
+        <tr>
+            <td><b>Client IP Address</b></td>
+            <td><th:block th:text="${ipAddress}"/></td>
+        </tr>
+        <tr>
+            <td><b>Client Browser</b></td>
+            <td><th:block th:text="${browser}"/></td>
+        </tr>
+        <tr>
+            <td><b>Pizza Type </b></td>
+            <td><th:block th:text="${order.pizzaType}"/></td>
+        </tr>
+        <tr>
+            <td><b>Pizza Size </b></td>
+            <td><th:block th:text="${order.pizzaSize}"/></td>
+        </tr>
+    </table>
+    <div>
+        <form action="logOut.do" method="post">
+            <input type="submit" value="Log out">
+        </form>
+    </div>
+
+
+</section>
+</body>
+</html>
