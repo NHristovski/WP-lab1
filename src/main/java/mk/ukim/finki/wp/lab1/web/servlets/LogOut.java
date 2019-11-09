@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab1.web;
+package mk.ukim.finki.wp.lab1.web.servlets;
 
 import lombok.AllArgsConstructor;
 

@@ -1,7 +1,6 @@
-package mk.ukim.finki.wp.lab1.web;
+package mk.ukim.finki.wp.lab1.web.servlets;
 
 import lombok.AllArgsConstructor;
-import mk.ukim.finki.wp.lab1.model.Order;
 import mk.ukim.finki.wp.lab1.model.Pizza;
 import mk.ukim.finki.wp.lab1.service.PizzaService;
 import org.thymeleaf.context.WebContext;
@@ -15,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/selectPizza.do")
+@WebServlet(urlPatterns = "")
 @AllArgsConstructor
-public class SelectPizza extends HttpServlet {
+public class ShowPizza extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
     private final PizzaService pizzaService;
@@ -28,22 +27,8 @@ public class SelectPizza extends HttpServlet {
         WebContext webContext = new WebContext(req, resp, req.getServletContext());
         List<Pizza> pizzas = pizzaService.listPizzas();
 
-        String pizzaName = req.getParameter("pizza");
-        Pizza pizza = pizzaService.getPizzaByName(pizzaName).orElseThrow(ServletException::new);
-
-        createOrder(req, pizzaName);
-
-        webContext.setVariable("pizza", pizza);
+        webContext.setVariable("pizzas", pizzas);
         resp.setContentType("text/html; charset=UTF-8");
-
-        this.springTemplateEngine.process("selectPizzaSize.html", webContext, resp.getWriter());
+        this.springTemplateEngine.process("listPizzas.html", webContext, resp.getWriter());
     }
-
-    private void createOrder(HttpServletRequest req, String pizzaName) {
-        Order order = new Order();
-        order.setPizzaType(pizzaName);
-
-        req.getSession().setAttribute("order",order);
-    }
-
 }

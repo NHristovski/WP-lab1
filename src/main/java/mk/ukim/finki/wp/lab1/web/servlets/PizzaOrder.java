@@ -1,6 +1,7 @@
-package mk.ukim.finki.wp.lab1.web;
+package mk.ukim.finki.wp.lab1.web.servlets;
 
 import lombok.AllArgsConstructor;
+import mk.ukim.finki.wp.lab1.model.Order;
 import mk.ukim.finki.wp.lab1.model.Pizza;
 import mk.ukim.finki.wp.lab1.service.PizzaService;
 import org.thymeleaf.context.WebContext;
@@ -14,21 +15,32 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "")
+@WebServlet(urlPatterns = "/pizzaOrder.do")
 @AllArgsConstructor
-public class ShowPizza extends HttpServlet {
+public class PizzaOrder extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private final PizzaService pizzaService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         WebContext webContext = new WebContext(req, resp, req.getServletContext());
-        List<Pizza> pizzas = pizzaService.listPizzas();
 
-        webContext.setVariable("pizzas", pizzas);
+        String pizzaSize = req.getParameter("pizza_size");
+
+        Order order = (Order) req.getSession().getAttribute("order");
+
+        if (pizzaSize == null || pizzaSize.isBlank()){
+            resp.sendRedirect("/selectPizza.do");
+            return;
+        }
+
+        order.setPizzaSize(pizzaSize);
+        req.getSession().setAttribute("order",order);
+
+        webContext.setVariable("order", order);
         resp.setContentType("text/html; charset=UTF-8");
-        this.springTemplateEngine.process("listPizzas.html", webContext, resp.getWriter());
+
+        this.springTemplateEngine.process("deliveryInfo.html", webContext, resp.getWriter());
     }
 }
