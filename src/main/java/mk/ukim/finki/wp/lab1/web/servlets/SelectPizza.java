@@ -3,7 +3,7 @@ package mk.ukim.finki.wp.lab1.web.servlets;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.lab1.model.Order;
 import mk.ukim.finki.wp.lab1.model.Pizza;
-import mk.ukim.finki.wp.lab1.service.PizzaService;
+import mk.ukim.finki.wp.lab1.service.PizzaServiceOld;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -21,17 +21,17 @@ import java.util.Optional;
 public class SelectPizza extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private final PizzaService pizzaService;
+    private final PizzaServiceOld pizzaServiceOld;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         WebContext webContext = new WebContext(req, resp, req.getServletContext());
-        List<Pizza> pizzas = pizzaService.listPizzas();
+        List<Pizza> pizzas = pizzaServiceOld.listPizzas();
 
         String pizzaName = req.getParameter("pizza");
 
-        Optional<Pizza> pizzaOptional = pizzaService.getPizzaByName(pizzaName);
+        Optional<Pizza> pizzaOptional = pizzaServiceOld.getPizzaByName(pizzaName);
 
         Pizza pizza;
 
@@ -43,7 +43,7 @@ public class SelectPizza extends HttpServlet {
                 resp.sendRedirect("");
                 return;
             }else{
-                pizza = pizzaService.getPizzaByName(order.getPizzaType()).get();
+                pizza = pizzaServiceOld.getPizzaByName(order.getPizzaType()).get();
                 pizzaName = pizza.getName();
             }
         }else{

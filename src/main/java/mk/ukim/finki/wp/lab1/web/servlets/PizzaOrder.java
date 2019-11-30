@@ -2,8 +2,6 @@ package mk.ukim.finki.wp.lab1.web.servlets;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.lab1.model.Order;
-import mk.ukim.finki.wp.lab1.model.Pizza;
-import mk.ukim.finki.wp.lab1.service.PizzaService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(urlPatterns = "/pizzaOrder.do")
 @AllArgsConstructor

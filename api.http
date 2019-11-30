@@ -1,0 +1,60 @@
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test1&spicy=false&amount=15&veggie=true
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+  client.assert(response.body.hasOwnProperty("id"), 'Can not find the id');
+  client.assert(response.body.hasOwnProperty("name"), 'Can not find the name');
+  client.assert(response.body.hasOwnProperty("spicy"), 'Can not find the spicy');
+  client.assert(response.body.hasOwnProperty("amount"), 'Can not find the amount');
+  client.assert(response.body.hasOwnProperty("veggie"), 'Can not find the veggie');
+});
+%}
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test2&spicy=true&amount=5&veggie=true
+
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test3&spicy=false&amount=1&veggie=false
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test4&spicy=false&amount=1&veggie=false
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test5&spicy=false&amount=1&veggie=false
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test6&spicy=false&amount=1&veggie=false
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/x-www-form-urlencoded
+
+name=test8&spicy=true&amount=1&veggie=false
+
+###
+GET http://localhost:8080/api/ingredients?spicy=false
+
+###
+GET http://localhost:8080/api/ingredients?page=1&size=5
+
+###

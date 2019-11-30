@@ -2,7 +2,7 @@ package mk.ukim.finki.wp.lab1.web.servlets;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.lab1.model.Pizza;
-import mk.ukim.finki.wp.lab1.service.PizzaService;
+import mk.ukim.finki.wp.lab1.service.PizzaServiceOld;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -19,13 +19,13 @@ import java.util.List;
 public class ShowPizza extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private final PizzaService pizzaService;
+    private final PizzaServiceOld pizzaServiceOld;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         WebContext webContext = new WebContext(req, resp, req.getServletContext());
-        List<Pizza> pizzas = pizzaService.listPizzas();
+        List<Pizza> pizzas = pizzaServiceOld.listPizzas();
 
         webContext.setVariable("pizzas", pizzas);
         resp.setContentType("text/html; charset=UTF-8");

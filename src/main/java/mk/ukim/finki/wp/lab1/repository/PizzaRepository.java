@@ -1,13 +1,9 @@
 package mk.ukim.finki.wp.lab1.repository;
 
 import mk.ukim.finki.wp.lab1.model.Pizza;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface PizzaRepository {
-
-    List<Pizza> getPizzas();
-
-    Optional<Pizza> getPizzaByName(String name);
+@Repository
+public interface PizzaRepository extends JpaRepository<Pizza,Long> {
 }
