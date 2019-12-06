@@ -1,60 +1,226 @@
+###
 POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-name=test1&spicy=false&amount=15&veggie=true
-
-> {%
-client.test("Request executed successfully", function() {
-  client.assert(response.status === 201, "Response status is not 201");
-  client.assert(response.body.hasOwnProperty("id"), 'Can not find the id');
-  client.assert(response.body.hasOwnProperty("name"), 'Can not find the name');
-  client.assert(response.body.hasOwnProperty("spicy"), 'Can not find the spicy');
-  client.assert(response.body.hasOwnProperty("amount"), 'Can not find the amount');
-  client.assert(response.body.hasOwnProperty("veggie"), 'Can not find the veggie');
-});
-%}
+{
+  "name": "name",
+  "spicy": true,
+  "amount": 12.0,
+  "veggie": true
+}
 
 ###
 POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-name=test2&spicy=true&amount=5&veggie=true
-
-
-###
-POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
-
-name=test3&spicy=false&amount=1&veggie=false
+{
+  "name": "name2",
+  "spicy": false,
+  "amount": 12.0,
+  "veggie": true
+}
 
 ###
 POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-name=test4&spicy=false&amount=1&veggie=false
-
-###
-POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
-
-name=test5&spicy=false&amount=1&veggie=false
-
-###
-POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
-
-name=test6&spicy=false&amount=1&veggie=false
+{
+  "name": "name3",
+  "spicy": true,
+  "amount": 12.0,
+  "veggie": false
+}
 
 ###
 POST http://localhost:8080/api/ingredients
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-name=test8&spicy=true&amount=1&veggie=false
+{
+  "name": "name4",
+  "spicy": false,
+  "amount": 12.0,
+  "veggie": false
+}
 
 ###
-GET http://localhost:8080/api/ingredients?spicy=false
+POST http://localhost:8080/api/ingredients
+Content-Type: application/json
+
+{
+  "name": "name5",
+  "spicy": false,
+  "amount": 12.0,
+  "veggie": false
+}
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/json
+
+{
+  "name": "name6",
+  "spicy": false,
+  "amount": 12.0,
+  "veggie": false
+}
+
+###
+
+PATCH http://localhost:8080/api/ingredients/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "new_name_patch",
+  "spicy": true,
+  "amount": 12.0,
+  "veggie": true
+}
+
+###
+GET http://localhost:8080/api/ingredients?page=0&size=5
 
 ###
 GET http://localhost:8080/api/ingredients?page=1&size=5
+###
+
+DELETE http://localhost:8080/api/ingredients/5
+
+
+###
+POST http://localhost:8080/api/pizzas
+Content-Type: application/json
+
+{
+  "name": "pizza1",
+  "description": "desc1",
+  "veggie": true,
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "name",
+      "spicy": true,
+      "amount": 12.0,
+      "veggie": true
+    },
+    {
+      "id": 2,
+      "name": "name2",
+      "spicy": false,
+      "amount": 12.0,
+      "veggie": true
+    }
+  ]
+}
+
+###
+PUT http://localhost:8080/api/pizzas/7
+Content-Type: application/json
+
+{
+  "id": 7,
+  "name": "pizza1_edited",
+  "description": "desc1",
+  "veggie": true,
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "name",
+      "spicy": true,
+      "amount": 12.0,
+      "veggie": true
+    },
+    {
+      "id": 2,
+      "name": "name2",
+      "spicy": false,
+      "amount": 12.0,
+      "veggie": true
+    },
+    {
+      "id": 3,
+      "name": "name3",
+      "spicy": true,
+      "amount": 12.0,
+      "veggie": false
+    }
+  ]
+}
+
+###
+
+
+POST http://localhost:8080/api/pizzas
+Content-Type: application/json
+
+{
+  "name": "pizza1",
+  "description": "desc1",
+  "veggie": true,
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "name",
+      "spicy": true,
+      "amount": 12.0,
+      "veggie": true
+    },
+    {
+      "id": 3,
+      "name": "name3",
+      "spicy": true,
+      "amount": 12.0,
+      "veggie": false
+    }
+  ]
+}
+
+###
+POST http://localhost:8080/api/pizzas
+Content-Type: application/json
+
+{
+  "name": "pizza2",
+  "description": "desc2",
+  "veggie": false,
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "name",
+      "spicy": true,
+      "amount": 12.0,
+      "veggie": true
+    },
+    {
+      "id": 2,
+      "name": "name2",
+      "spicy": false,
+      "amount": 12.0,
+      "veggie": true
+    },
+    {
+      "id": 6,
+      "name": "name6",
+      "spicy": false,
+      "amount": 12.0,
+      "veggie": false
+    }
+  ]
+}
+
+###
+
+GET http://localhost:8080/api/pizzas/
+
+###
+
+GET http://localhost:8080/api/pizzas/compare?pizza1=7&pizza2=8
+
+###
+DELETE http://localhost:8080/api/pizzas/8
+
+###
+
+GET http://localhost:8080/api/ingredients?page=0&size=5
 
 ###

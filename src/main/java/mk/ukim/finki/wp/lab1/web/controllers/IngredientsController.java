@@ -12,9 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.ResultSet;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 @RestController
 @RequestMapping("/api")
@@ -25,7 +23,7 @@ public class IngredientsController {
     private final PizzaService pizzaService;
 
     @PostMapping("/ingredients")
-    public ResponseEntity addIngredient(Ingredient ingredient) {
+    public ResponseEntity addIngredient(@RequestBody Ingredient ingredient) {
         System.out.println("ingredient: " + ingredient.toString());
         try {
             ingredientService.add(ingredient);
@@ -37,8 +35,9 @@ public class IngredientsController {
     }
 
     @PatchMapping("/ingredients/{id}")
-    public ResponseEntity editIngredient(@PathVariable Long id, Ingredient ingredient) {
+    public ResponseEntity editIngredient(@PathVariable Long id, @RequestBody Ingredient ingredient) {
         try {
+            System.out.println("ing: " + ingredient.toString());
             ingredientService.edit(ingredient);
             return ResponseEntity.ok(ingredient);
 
@@ -54,7 +53,7 @@ public class IngredientsController {
         try {
             return ResponseEntity.ok(ingredientService.delete(id));
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -64,7 +63,7 @@ public class IngredientsController {
         try {
             Ingredient ingredient = ingredientService.getOne(id);
             return ResponseEntity.ok(ingredient);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -72,12 +71,13 @@ public class IngredientsController {
     @GetMapping("/ingredients")
     public ResponseEntity getIngredients(@RequestParam(defaultValue = "0") Integer page,
                                          @RequestParam(defaultValue = "5") Integer size,
-                                         @RequestParam(required = false) Boolean spicy){
+                                         @RequestParam(required = false) Boolean spicy) {
 
-        if (spicy != null){
-            if (spicy){
+        if (spicy != null) {
+            System.out.println("spicy not null");
+            if (spicy) {
                 return ResponseEntity.ok(ingredientService.getAllSpicy());
-            }else{
+            } else {
                 List<Ingredient> all = ingredientService.getAll();
                 List<Ingredient> allSpicy = ingredientService.getAllSpicy();
 
@@ -87,15 +87,16 @@ public class IngredientsController {
             }
         }
 
-        if (size > 10){
+        if (size > 10) {
             size = 10;
         }
-        return ResponseEntity.ok(ingredientService.getAll(page,size));
+        System.out.println("spicy null");
+        return ResponseEntity.ok(ingredientService.getAll(page, size));
     }
 
 
     @GetMapping("/ingredients/{id}/pizzas")
-    public ResponseEntity getAllPizzas(@PathVariable Long id){
+    public ResponseEntity getAllPizzas(@PathVariable Long id) {
         List<Pizza> allWithIngredient = pizzaService.getAllWithIngredient(ingredientService.getOne(id));
         return ResponseEntity.ok(allWithIngredient);
     }

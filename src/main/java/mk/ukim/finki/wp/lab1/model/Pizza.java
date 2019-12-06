@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.lab1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "pizzas")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @VeggiePizzaConstraint
 public class Pizza {
 
@@ -29,6 +31,8 @@ public class Pizza {
     private String name;
     private String description;
     private Boolean veggie;
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.DETACH
+    },fetch = FetchType.EAGER)
     private List<Ingredient> ingredients;
 }

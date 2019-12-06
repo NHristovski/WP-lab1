@@ -1,5 +1,7 @@
 package mk.ukim.finki.wp.lab1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Entity
 @Table(name = "ingredients")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +28,7 @@ public class Ingredient {
     private boolean veggie;
 
     public Ingredient(String name,Boolean spicy,Float amount,Boolean veggie){
+        System.out.println("ctor called: " + name + " ; " + spicy + " : " + amount  +" ; " + veggie);
         this.name = name;
         this.spicy = spicy;
         this.amount = amount;

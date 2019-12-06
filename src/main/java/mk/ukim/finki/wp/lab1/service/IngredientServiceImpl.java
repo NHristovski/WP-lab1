@@ -68,6 +68,8 @@ public class IngredientServiceImpl implements IngredientService {
     public List<Ingredient> getAll(int currentPage, int pageSize) {
         Pageable page = PageRequest.of(currentPage, pageSize, Sort.by("name"));
         Page<Ingredient> all = repository.findAll(page);
+        System.out.println("page: " + all + " content: " + all.getContent());
+        System.out.println("all from repo: " + repository.findAll());
         return all.getContent();
     }
 
