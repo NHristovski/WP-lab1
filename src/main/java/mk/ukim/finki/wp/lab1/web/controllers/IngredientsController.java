@@ -17,35 +17,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class IngredientsController {
 
     private final IngredientService ingredientService;
     private final PizzaService pizzaService;
 
     @PostMapping("/ingredients")
-    public ResponseEntity addIngredient(@RequestBody Ingredient ingredient) {
-        System.out.println("ingredient: " + ingredient.toString());
-        try {
-            ingredientService.add(ingredient);
-            return ResponseEntity.status(HttpStatus.CREATED).body(ingredient);
-
-        } catch (DuplicateIngredientException | SpicyIngredientsLimitReachedException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity addIngredient(@RequestBody Ingredient ingredient) throws SpicyIngredientsLimitReachedException, DuplicateIngredientException {
+        ingredientService.add(ingredient);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ingredient);
     }
 
     @PatchMapping("/ingredients/{id}")
-    public ResponseEntity editIngredient(@PathVariable Long id, @RequestBody Ingredient ingredient) {
-        try {
-            System.out.println("ing: " + ingredient.toString());
-            ingredientService.edit(ingredient);
-            return ResponseEntity.ok(ingredient);
-
-        } catch (DuplicateIngredientException | SpicyIngredientsLimitReachedException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } catch (IngredientNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity editIngredient(@PathVariable Long id, @RequestBody Ingredient ingredient) throws IngredientNotFoundException, SpicyIngredientsLimitReachedException, DuplicateIngredientException {
+        Ingredient editedIngredient = ingredientService.edit(ingredient);
+        return ResponseEntity.ok(editedIngredient);
     }
 
     @DeleteMapping("/ingredients/{id}")

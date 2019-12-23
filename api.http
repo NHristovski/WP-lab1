@@ -14,7 +14,7 @@ POST http://localhost:8080/api/ingredients
 Content-Type: application/json
 
 {
-  "name": "name2",
+  "name": "name10",
   "spicy": false,
   "amount": 12.0,
   "veggie": true
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 {
   "name": "name4",
-  "spicy": false,
+  "spicy": true,
   "amount": 12.0,
   "veggie": false
 }
@@ -60,6 +60,28 @@ Content-Type: application/json
 {
   "name": "name6",
   "spicy": false,
+  "amount": 12.0,
+  "veggie": false
+}
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/json
+
+{
+  "name": "name7",
+  "spicy": true,
+  "amount": 12.0,
+  "veggie": false
+}
+
+###
+POST http://localhost:8080/api/ingredients
+Content-Type: application/json
+
+{
+  "name": "name8",
+  "spicy": true,
   "amount": 12.0,
   "veggie": false
 }
